@@ -48,11 +48,12 @@ export default function RealGalleryPage() {
               [focusPoint - segment * 0.5, focusPoint, focusPoint + segment * 0.5],
               [startOpacity, 1, 0]
             );
+            const pointerEvents = useTransform(opacity, value => value > 0.1 ? 'auto' : 'none');
 
             return (
               <motion.div
                 key={item.id}
-                style={{ position: 'absolute', z, opacity, cursor: 'pointer' }}
+                style={{ position: 'absolute', z, opacity, pointerEvents, cursor: 'pointer' }}
                 whileHover={{ scale: 1.05 }}
                 onClick={() => navigate(`/real/${item.id}`)}
               >

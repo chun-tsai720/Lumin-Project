@@ -4,11 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 // (💡 這裡保留原本的血汗抓取檔名字典檔，因篇幅省略，請務必保留在你的檔案頂部 💡)
 const galleryData: Record<string, { name: string, files: string[] }> = {
-  huan: { name: '幻', files: Array.from({ length: 21 }, (_, i) => `huan${String(i + 1).padStart(2, '0')}.jpg`) },
-  heavy: { name: '重', files: Array.from({ length: 17 }, (_, i) => `heavy${String(i + 1).padStart(2, '0')}.jpg`) },
-  ethereal: { name: '緲', files: Array.from({ length: 9 }, (_, i) => `ethereal${String(i + 1).padStart(2, '0')}.jpg`) },
-  crush: { name: '壓', files: Array.from({ length: 6 }, (_, i) => `crush${String(i + 1).padStart(2, '0')}.jpg`) },
-  haze: { name: '霧', files: Array.from({ length: 53 }, (_, i) => `haze${String(i + 1).padStart(2, '0')}.jpg`) },
+  huan: { name: '幻', files: ['cover.jpg', ...Array.from({ length: 21 }, (_, i) => `huan${String(i + 1).padStart(2, '0')}.jpg`)] },
+  heavy: { name: '重', files: ['cover.jpg', ...Array.from({ length: 17 }, (_, i) => `heavy${String(i + 1).padStart(2, '0')}.jpg`)] },
+  ethereal: { name: '緲', files: ['cover.jpg', ...Array.from({ length: 9 }, (_, i) => `ethereal${String(i + 1).padStart(2, '0')}.jpg`)] },
+  crush: { name: '壓', files: ['cover.jpg', ...Array.from({ length: 6 }, (_, i) => `crush${String(i + 1).padStart(2, '0')}.jpg`)] },
+  haze: { name: '霧', files: ['cover.jpg', ...Array.from({ length: 53 }, (_, i) => `haze${String(i + 1).padStart(2, '0')}.jpg`)] },
 };
 
 export default function SubGallery() {

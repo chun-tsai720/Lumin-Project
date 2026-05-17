@@ -30,10 +30,10 @@ export default function IntroCard() {
         </div>
         <nav className="nav-controls">
           <button className="nav-btn" onClick={() => handleNavigation('/')}>
-            ← 退回封面
+            ← BACK TO COVER
           </button>
           <button className="nav-btn" onClick={() => handleNavigation('/lobby')}>
-            進入展間 →
+            ENTER LOBBY →
           </button>
         </nav>
       </section>

@@ -11,7 +11,7 @@ export default function Lobby() {
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: 'transparent' }}
     >
       <h1 style={{ color: '#D4AF37', letterSpacing: '0.5rem', fontSize: '3rem', marginBottom: '1rem' }}>THE LOBBY</h1>
-      <p style={{ color: '#888', marginBottom: '4rem' }}>選擇進入路徑</p>
+      <p style={{ color: '#D4AF37', marginBottom: '4rem' }}>SELECT YOUR PATH</p>
 
       <div style={{ display: 'flex', gap: '3rem' }}>
         {/* 實體入口 */}
@@ -40,7 +40,7 @@ export default function Lobby() {
       </div>
 
       <button className="nav-btn" style={{ marginTop: '5rem', opacity: 0.6 }} onClick={() => navigate('/about')}>
-        ← 返回作者介紹
+        ← BACK TO INTRO
       </button>
     </motion.div>
   );

@@ -5,8 +5,13 @@ import { useNavigate } from 'react-router-dom';
 // 💡 總監已經幫你把「策展人精選封面」全部換好了
 const collections = [
   { id: 'huan', name: '幻', en: 'ILLUSION', cover: 'cover.jpg' },
+  { id: 'light', name: '光', en: 'GLOW', cover: 'cover.jpg' },
   { id: 'heavy', name: '重', en: 'GRAVITY', cover: 'cover.jpg' },
+  { id: 'maze', name: '迷', en: 'MAZE', cover: 'cover.jpg' },
+  { id: 'reflect', name: '絮', en: 'REFLECT', cover: 'cover.jpg' },
   { id: 'ethereal', name: '緲', en: 'ETHEREAL', cover: 'cover.jpg' },
+  { id: 'shadow', name: '影', en: 'TRACE', cover: 'cover.jpg' },
+  { id: 'still', name: '靜', en: 'SILENCE', cover: 'cover.jpg' },
   { id: 'crush', name: '壓', en: 'PRESSURE', cover: 'cover.jpg' },
   { id: 'haze', name: '霧', en: 'MIST', cover: 'cover.jpg' }
 ];

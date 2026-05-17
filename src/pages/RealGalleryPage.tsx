@@ -4,16 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 // 💡 總監已經幫你把「策展人精選封面」全部換好了
 const collections = [
-  { id: 'huan', name: '幻', en: 'ILLUSION', cover: 'huan5714.jpg' },
-  { id: 'light', name: '光', en: 'GLOW', cover: 'light913.jpg' },
-  { id: 'heavy', name: '重', en: 'GRAVITY', cover: 'heavy2026.jpg' },
-  { id: 'maze', name: '迷', en: 'MAZE', cover: 'maze114061111.jpg' },
-  { id: 'reflect', name: '照', en: 'REFLECT', cover: 'reflect.jpg' },
-  { id: 'ethereal', name: '輕', en: 'FLOAT', cover: 'ethereal151.jpg' },
-  { id: 'shadow', name: '影', en: 'TRACE', cover: 'shadow2639.jpg' },
-  { id: 'still', name: '靜', en: 'SILENCE', cover: 'still0979.jpg' },
-  { id: 'crush', name: '壓', en: 'PRESSURE', cover: 'crush406.jpg' },
-  { id: 'haze', name: '霧', en: 'MIST', cover: 'haze214.jpg' },
+  { id: 'huan', name: '幻', en: 'ILLUSION', cover: 'cover.jpg' },
+  { id: 'heavy', name: '重', en: 'GRAVITY', cover: 'cover.jpg' },
+  { id: 'ethereal', name: '緲', en: 'ETHEREAL', cover: 'cover.jpg' },
+  { id: 'crush', name: '壓', en: 'PRESSURE', cover: 'cover.jpg' },
+  { id: 'haze', name: '霧', en: 'MIST', cover: 'cover.jpg' }
 ];
 
 export default function RealGalleryPage() {

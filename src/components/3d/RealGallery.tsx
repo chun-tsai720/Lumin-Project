@@ -1,9 +1,8 @@
 import { useRef } from 'react';
-import { useScroll, ScrollControls } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { ScrollControls } from '@react-three/drei';
 import * as THREE from 'three';
 
-function RealRoomTemplate({ position, title }: { position: [number, number, number], title: string }) {
+function RealRoomTemplate({ position }: { position: [number, number, number] }) {
   return (
     <group position={position}>
       {/* 左虛擬牆面 */}
@@ -33,7 +32,7 @@ export function RealGallery({ rooms }: { rooms: string[] }) {
     <ScrollControls pages={rooms.length} damping={0.2} distance={1}>
       <group ref={group}>
         {rooms.map((room, index) => (
-          <RealRoomTemplate key={room} position={[0, 0, index * -10]} title={room} />
+          <RealRoomTemplate key={room} position={[0, 0, index * -10]} />
         ))}
       </group>
     </ScrollControls>

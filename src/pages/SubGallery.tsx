@@ -16,11 +16,14 @@ export default function SubGallery() {
   const navigate = useNavigate();
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  // 💡 用來控制當前放大檢視的照片檔名
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  // 💡 用來控制當前放大檢視的照片索引，確保 Lightbox 直接使用 galleryData 裡的實際檔名
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
 
   const collectionKey = id && galleryData[id] ? id : 'huan';
   const data = galleryData[collectionKey];
+  const selectedPhotoFilename = selectedPhotoIndex !== null ? data.files[selectedPhotoIndex] : null;
+  // public/real/{系列ID}/[實際檔名] 會由 Vite 以 /real/... 的公開路徑提供
+  const selectedPhotoSrc = selectedPhotoFilename ? `/real/${collectionKey}/${selectedPhotoFilename}` : '';
 
   // 💡 監測專屬容器的滾動
   const { scrollYProgress } = useScroll({
@@ -87,7 +90,7 @@ export default function SubGallery() {
                     cursor: 'zoom-in', // 滑鼠樣式改為放大
                     transformStyle: 'preserve-3d'
                 }}
-                onClick={() => setSelectedPhoto(filename)} // 點擊設定放大照片
+                onClick={() => setSelectedPhotoIndex(index)} // 點擊設定放大照片索引
               >
                 {/* 💡 作品框：去掉邊框，讓圖片更大，就像直接懸浮在牆上 */}
                 <motion.div 
@@ -132,13 +135,13 @@ export default function SubGallery() {
 
       {/* 💡 放大觀賞模式 (Lightbox) */}
       <AnimatePresence>
-        {selectedPhoto && (
+        {selectedPhotoFilename && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             // 點擊背景關閉
-            onClick={() => setSelectedPhoto(null)}
+            onClick={() => setSelectedPhotoIndex(null)}
             style={{
               position: 'fixed', top: 0, left: 0,
               width: '100vw', height: '100vh',
@@ -154,7 +157,7 @@ export default function SubGallery() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.8, y: 50 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              src={`/real/${collectionKey}/${selectedPhoto}`}
+              src={selectedPhotoSrc}
               alt="Maximized Artwork"
               style={{
                 maxWidth: '90%', maxHeight: '90%', // 💡 全螢幕放大

@@ -1,183 +1,82 @@
-import { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// (💡 這裡保留原本的血汗抓取檔名字典檔，因篇幅省略，請務必保留在你的檔案頂部 💡)
-const galleryData: Record<string, { name: string, files: string[] }> = {
+const galleryData: Record<string, { name: string; files: string[] }> = {
   huan: { name: '幻', files: ['cover.jpg', ...Array.from({ length: 21 }, (_, i) => `huan${String(i + 1).padStart(2, '0')}.jpg`)] },
   light: { name: '光', files: ['cover.jpg', ...Array.from({ length: 36 }, (_, i) => `light${String(i + 1).padStart(2, '0')}.jpg`)] },
   heavy: { name: '重', files: ['cover.jpg', ...Array.from({ length: 17 }, (_, i) => `heavy${String(i + 1).padStart(2, '0')}.jpg`)] },
   maze: { name: '迷', files: ['cover.jpg', ...Array.from({ length: 16 }, (_, i) => `maze${String(i + 1).padStart(2, '0')}.jpg`)] },
-  reflect: { name: '絮', files: ['cover.jpg'] },
-  ethereal: { name: '緲', files: ['cover.jpg', ...Array.from({ length: 9 }, (_, i) => `ethereal${String(i + 1).padStart(2, '0')}.jpg`)] },
+  reflect: { name: '映', files: ['cover.jpg'] },
+  ethereal: { name: '渺', files: ['cover.jpg', ...Array.from({ length: 9 }, (_, i) => `ethereal${String(i + 1).padStart(2, '0')}.jpg`)] },
   shadow: { name: '影', files: ['cover.jpg', ...Array.from({ length: 36 }, (_, i) => `shadow${String(i + 1).padStart(2, '0')}.jpg`)] },
-  still: { name: '靜', files: ['cover.jpg', ...Array.from({ length: 24 }, (_, i) => `still${String(i + 1).padStart(2, '0')}.jpg`)] },
+  still: { name: '靜', files: ['cover.jpg', ...Array.from({ length: 24 }, (_, i) => `stills${String(i + 1).padStart(2, '0')}.jpg`)] },
   crush: { name: '壓', files: ['cover.jpg', ...Array.from({ length: 6 }, (_, i) => `crush${String(i + 1).padStart(2, '0')}.jpg`)] },
-  haze: { name: '霧', files: ['cover.jpg', ...Array.from({ length: 53 }, (_, i) => `haze${String(i + 1).padStart(2, '0')}.jpg`)] },
+  haze: { name: '霾', files: ['cover.jpg', ...Array.from({ length: 53 }, (_, i) => `haze${String(i + 1).padStart(2, '0')}.jpg`)] }
 };
 
 export default function SubGallery() {
-  const { id } = useParams(); 
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  // 💡 用來控制當前放大檢視的照片索引，確保 Lightbox 直接使用 galleryData 裡的實際檔名
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  const currentId = id ? id.toLowerCase() : 'huan';
+  const data = galleryData[currentId];
 
-  const collectionKey = id && galleryData[id] ? id : 'huan';
-  const data = galleryData[collectionKey];
-  const selectedPhotoFilename = selectedPhotoIndex !== null ? data.files[selectedPhotoIndex] : null;
-  // public/real/{系列ID}/[實際檔名] 會由 Vite 以 /real/... 的公開路徑提供
-  const selectedPhotoSrc = selectedPhotoFilename ? `/real/${collectionKey}/${selectedPhotoFilename}` : '';
+  // 核心修復：selectedPhoto 直接儲存完整的檔名路徑字串，徹底防止錯位
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
-  // 💡 監測專屬容器的滾動
-  const { scrollYProgress } = useScroll({
-    container: scrollContainerRef
-  });
+  useEffect(() => {
+    setSelectedPhoto(null);
+  }, [currentId]);
+
+  if (!data) {
+    return (
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4">
+        <p className="text-sm tracking-widest text-zinc-500">GALLERY NOT FOUND</p>
+        <button onClick={() => navigate('/real')} className="text-xs text-[#DDAA33] border-b border-[#DDAA33]">BACK TO TUNNEL</button>
+      </div>
+    );
+  }
 
   return (
-    // 💡 外層容器：強制允許上下滾動 (就像 Tunnel 頁一樣)
-    <div 
-      ref={scrollContainerRef} 
-      style={{ 
-        width: '100vw', height: '100vh', 
-        background: '#010101', // 極致黑背景
-        overflowY: 'scroll', overflowX: 'hidden', 
-        position: 'relative'
-      }}
-    >
-      {/* 製造極長的滾動空間 (每張照片給 80vh 的行進距離) */}
-      <div style={{ height: `${data.files.length * 80 + 100}vh`, width: '100%' }}>
-        
-        {/* 3D 攝影機舞臺：黏在螢幕上 */}
-        <div style={{ 
-          position: 'sticky', top: 0, 
-          width: '100%', height: '100vh', 
-          perspective: '1500px', // 💡 增強透視感
-          display: 'flex', alignItems: 'center', justifyContent: 'center', 
-          overflow: 'hidden'
-        }}>
-          
-          {/* 固定標題與返回 */}
-          <div style={{ position: 'absolute', top: '40px', left: '40px', zIndex: 10 }}>
-            <button className="nav-btn" onClick={() => navigate('/real')}>← BACK TO TUNNEL</button>
-            <h1 style={{ color: '#D4AF37', fontSize: '3rem', marginTop: '1rem', letterSpacing: '10px' }}>
-              {data.name}
-            </h1>
-            <p style={{ color: '#444', letterSpacing: '3px' }}>{data.files.length} WORKS</p>
-          </div>
+    <main className="min-h-screen bg-[#050505] text-zinc-400 font-sans relative select-none overflow-y-auto px-6 py-12">
+      
+      <header className="max-w-7xl mx-auto w-full flex justify-between items-center mb-16">
+        <button onClick={() => navigate('/real')} className="text-xs tracking-[0.2em] text-zinc-500 hover:text-[#DDAA33] transition-colors">← BACK TO TUNNEL</button>
+        <h1 className="text-2xl font-bold tracking-[0.2em] text-[#DDAA33] uppercase">{data.name} // REALITY</h1>
+      </header>
 
-          {/* 💡 穿越作品隧道 */}
-          {data.files.map((filename, index) => {
-            const count = data.files.length;
-            const segment = 1 / count;
-            const focusPoint = index * segment;
-
-            // Z 軸動畫：從深處 -2500 飛到眼前 0，再飛過頭 1500
-            const z = useTransform(
-              scrollYProgress,
-              [focusPoint - segment, focusPoint, focusPoint + segment],
-              [-2500, 0, 1500]
-            );
-
-            // 透明度動畫：靠近時最亮，遠離時淡出
-            const opacity = useTransform(
-              scrollYProgress,
-              [focusPoint - segment * 0.7, focusPoint - segment * 0.1, focusPoint + segment * 0.1, focusPoint + segment * 0.7],
-              [0, 1, 1, 0]
-            );
-
-            return (
-              <motion.div
-                key={filename}
-                style={{ 
-                    position: 'absolute', z, opacity, 
-                    cursor: 'zoom-in', // 滑鼠樣式改為放大
-                    transformStyle: 'preserve-3d'
-                }}
-                onClick={() => setSelectedPhotoIndex(index)} // 點擊設定放大照片索引
-              >
-                {/* 💡 作品框：去掉邊框，讓圖片更大，就像直接懸浮在牆上 */}
-                <motion.div 
-                    style={{
-                        width: 'auto', // 寬度自適應
-                        height: '65vh', // 💡 圖片放大：高度佔螢幕 65%
-                        maxHeight: '600px', // 限制最大高度
-                        background: '#111',
-                        padding: '10px',
-                        boxShadow: '0 20px 50px rgba(0,0,0,0.8)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center'
-                    }}
-                    whileHover={{ 
-                        boxShadow: '0 0 30px rgba(212,175,55,0.3)',
-                        borderColor: '#D4AF37'
-                    }}
-                >
-                  <img 
-                    src={`/real/${collectionKey}/${filename}`} 
-                    alt="Artwork"
-                    style={{ 
-                        height: '100%', width: 'auto', 
-                        objectFit: 'contain', // 確保完整顯示
-                        display: 'block'
-                    }}
-                  />
-                </motion.div>
-                
-                {/* 檔名微小標註 */}
-                <p style={{ color: '#333', fontSize: '0.6rem', textAlign: 'center', marginTop: '10px', letterSpacing: '2px' }}>
-                    {filename}
-                </p>
-              </motion.div>
-            );
-          })}
-
-          <div style={{ position: 'absolute', bottom: '40px', opacity: 0.2, fontSize: '0.65rem', letterSpacing: '4px', color: '#fff' }}>
-            SCROLL TO CHASE LIGHT
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {data.files.map((filename) => (
+          <motion.div
+            key={filename}
+            className="bg-zinc-950 border border-zinc-900 p-4 flex flex-col items-center cursor-pointer group"
+            whileHover={{ y: -5 }}
+            onClick={() => setSelectedPhoto(filename)}
+          >
+            <div className="w-full aspect-[3/4] overflow-hidden bg-zinc-900 mb-4">
+              <img src={`/real/${currentId}/${filename}`} alt={filename} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+            </div>
+            <span className="text-[10px] tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors uppercase">{filename}</span>
+          </motion.div>
+        ))}
       </div>
 
-      {/* 💡 放大觀賞模式 (Lightbox) */}
       <AnimatePresence>
-        {selectedPhotoFilename && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            // 點擊背景關閉
-            onClick={() => setSelectedPhotoIndex(null)}
-            style={{
-              position: 'fixed', top: 0, left: 0,
-              width: '100vw', height: '100vh',
-              background: 'rgba(0,0,0,0.95)', // 深色遮罩
-              backdropFilter: 'blur(10px)', // 毛玻璃效果
-              zIndex: 9999, // 疊在最上層
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'zoom-out' // 滑鼠樣式改為縮小
-            }}
+        {selectedPhoto && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center p-4 cursor-zoom-out"
+            onClick={() => setSelectedPhoto(null)}
           >
-            <motion.img
-              initial={{ scale: 0.8, y: 50 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 50 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              src={selectedPhotoSrc}
-              alt="Maximized Artwork"
-              style={{
-                maxWidth: '90%', maxHeight: '90%', // 💡 全螢幕放大
-                boxShadow: '0 0 50px rgba(212,175,55,0.2)',
-                border: '1px solid rgba(212,175,55,0.1)'
-              }}
-            />
-            
-            {/* 提示文字 */}
-            <div style={{ position: 'absolute', bottom: '30px', color: '#888', letterSpacing: '2px', fontSize: '0.8rem' }}>
-              CLICK ANYWHERE TO CLOSE
+            <figure className="max-w-[90vw] max-h-[85vh] overflow-hidden border border-zinc-900 bg-zinc-950">
+              <img src={`/real/${currentId}/${selectedPhoto}`} alt="Expanded" className="w-full h-full object-contain" onClick={(e) => e.stopPropagation()} />
+            </figure>
+            <div className="mt-4 text-center" onClick={(e) => e.stopPropagation()}>
+              <p className="text-xs tracking-[0.2em] text-[#DDAA33] font-mono m-0 uppercase">VIEWPORT // {selectedPhoto}</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 }

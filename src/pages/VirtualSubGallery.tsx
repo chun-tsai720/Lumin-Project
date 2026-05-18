@@ -17,7 +17,6 @@ export default function VirtualSubGallery() {
   const currentId = id ? id.toLowerCase() : '';
   const currentGallery = galleryData[currentId];
 
-  // 核心修復：selectedPhoto 儲存完整的檔名路徑字串而非數字 index
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
   useEffect(() => {
@@ -57,13 +56,19 @@ export default function VirtualSubGallery() {
         </section>
       </div>
 
+      <footer className="w-full text-center pb-8">
+        <p className="text-[9px] tracking-[0.3em] text-zinc-600 font-light uppercase">CLICK IMAGE TO OPEN NEURAL VIEWPORT</p>
+      </footer>
+
       {selectedPhoto && (
-        <div className="fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center p-4" onClick={() => setSelectedPhoto(null)}>
-          <figure className="max-w-[90vw] max-h-[80vh] overflow-hidden relative border border-zinc-800 bg-zinc-950">
-            <img src={`/virtual/${currentId}/${selectedPhoto}`} alt="Expanded" className="w-full h-full object-contain" onClick={(e) => e.stopPropagation()} />
+        <div className="fixed inset-0 bg-black/98 z-50 flex flex-col items-center justify-center p-12 transition-opacity duration-300" onClick={() => setSelectedPhoto(null)}>
+          {/* 核心修正：大幅縮小圖片容器限制，增加優雅留白空間 */}
+          <figure className="max-w-[65vw] max-h-[70vh] overflow-hidden relative border border-zinc-800 bg-zinc-950 shadow-[0_0_80px_rgba(0,0,0,0.8)]">
+            <img src={`/virtual/${currentId}/${selectedPhoto}`} alt="Expanded Neural Viewport" className="w-full h-full object-contain" onClick={(e) => e.stopPropagation()} />
           </figure>
-          <div className="mt-6 text-center" onClick={(e) => e.stopPropagation()}>
-            <span className="text-xs tracking-[0.2em] text-[#DDAA33] font-mono">VIEWPORT // {selectedPhoto.toUpperCase()}</span>
+          <div className="mt-6 text-center flex flex-col gap-2" onClick={(e) => e.stopPropagation()}>
+            <span className="text-xs tracking-[0.2em] text-[#DDAA33] font-mono m-0 uppercase">VIEWPORT // {selectedPhoto.toUpperCase()}</span>
+            <button onClick={() => setSelectedPhoto(null)} className="text-[10px] tracking-[0.3em] text-zinc-500 hover:text-white mt-2 transition-colors">TAP ANYWHERE TO CLOSE</button>
           </div>
         </div>
       )}

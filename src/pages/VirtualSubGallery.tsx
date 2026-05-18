@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const galleryData: Record<string, { name: string; subtitle: string; totalSlices: number; files: string[] }> = {
   '1990': { name: '1990', subtitle: 'VIRTUAL ENTITY', totalSlices: 3, files: ['cover.png', '1.png', '2.png'] },
@@ -25,53 +26,65 @@ export default function VirtualSubGallery() {
 
   if (!currentGallery) {
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4">
-        <p className="text-sm tracking-widest text-zinc-500">GALLERY NOT FOUND</p>
-        <button onClick={() => navigate('/lobby')} className="text-xs text-[#DDAA33] border-b border-[#DDAA33]">BACK TO LOBBY</button>
+      <div style={{ minHeight: '100vh', backgroundColor: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <button onClick={() => navigate('/lobby')} style={{ color: '#DDAA33', background: 'transparent', border: 'none', cursor: 'pointer' }}>BACK TO LOBBY</button>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#050505] text-zinc-400 font-sans relative overflow-x-hidden select-none">
-      <header className="p-8 flex justify-between items-center max-w-7xl mx-auto w-full">
-        <button onClick={() => navigate('/lobby')} className="text-xs tracking-[0.2em] text-zinc-500 hover:text-[#DDAA33] transition-colors">← BACK TO LOBBY</button>
-        <span className="text-[10px] tracking-[0.4em] text-zinc-600 font-light">LUMIN | 虛色數位策展空間</span>
-      </header>
+    <main style={{ minHeight: '100vh', backgroundColor: '#050505', display: 'flex', position: 'relative', overflow: 'hidden' }}>
 
-      <div className="max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center min-h-[calc(100vh-160px)]">
-        <section className="lg:col-span-4 flex flex-col justify-center text-center lg:text-left">
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-[0.2em] text-[#DDAA33] mb-4 uppercase">{currentGallery.name}</h1>
-          <p className="text-xs tracking-[0.3em] text-zinc-500 font-medium uppercase">{currentGallery.subtitle} / {currentGallery.totalSlices} SLICES</p>
-        </section>
-
-        <section className="lg:col-span-8 flex justify-center items-center">
-          <div
-            style={{ width: '450px', height: '450px' }}
-            className="overflow-hidden bg-zinc-950 border border-zinc-900 shadow-[0_0_50px_rgba(0,0,0,0.8)] cursor-pointer group relative"
-            onClick={() => setSelectedPhoto(currentGallery.files[0])}
-          >
-            <img src={`/virtual/${currentId}/${currentGallery.files[0]}`} alt={currentGallery.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-        </section>
-      </div>
-
-      <footer className="w-full text-center pb-8">
-        <p className="text-[9px] tracking-[0.3em] text-zinc-600 font-light uppercase">CLICK IMAGE TO OPEN NEURAL VIEWPORT</p>
-      </footer>
-
-      {selectedPhoto && (
-        <div className="fixed inset-0 bg-black/98 z-50 flex flex-col items-center justify-center p-12 transition-opacity duration-300" onClick={() => setSelectedPhoto(null)}>
-          {/* 核心修正：大幅縮小圖片容器限制，增加優雅留白空間 */}
-          <figure className="max-w-[65vw] max-h-[70vh] overflow-hidden relative border border-zinc-800 bg-zinc-950 shadow-[0_0_80px_rgba(0,0,0,0.8)]">
-            <img src={`/virtual/${currentId}/${selectedPhoto}`} alt="Expanded Neural Viewport" className="w-full h-full object-contain" onClick={(e) => e.stopPropagation()} />
-          </figure>
-          <div className="mt-6 text-center flex flex-col gap-2" onClick={(e) => e.stopPropagation()}>
-            <span className="text-xs tracking-[0.2em] text-[#DDAA33] font-mono m-0 uppercase">VIEWPORT // {selectedPhoto.toUpperCase()}</span>
-            <button onClick={() => setSelectedPhoto(null)} className="text-[10px] tracking-[0.3em] text-zinc-500 hover:text-white mt-2 transition-colors">TAP ANYWHERE TO CLOSE</button>
-          </div>
+      {/* 左側：強勢固定（Sticky）標題資訊欄，絕不跟著滾動 */}
+      <section style={{ width: '35%', height: '100vh', position: 'sticky', top: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '64px', flexShrink: 0, boxSizing: 'border-box', borderRight: '1px solid #141416' }}>
+        <div>
+          <button onClick={() => navigate('/lobby')} style={{ background: 'transparent', border: 'none', color: '#52525b', fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer', padding: 0 }}>
+            ← BACK TO LOBBY
+          </button>
+          <h1 style={{ fontSize: '48px', fontWeight: 'bold', letterSpacing: '0.15em', color: '#DDAA33', margin: '40px 0 12px 0', textTransform: 'uppercase' }}>{currentGallery.name}</h1>
+          <p style={{ fontSize: '12px', letterSpacing: '0.3em', color: '#71717a', margin: 0, textTransform: 'uppercase' }}>{currentGallery.subtitle} / {currentGallery.totalSlices} SLICES</p>
         </div>
-      )}
+        <div style={{ fontSize: '10px', letterSpacing: '0.3em', color: '#3f3f46' }}>
+          CLICK ANY ARTWORK TO OPEN VIEWPORT
+        </div>
+      </section>
+
+      {/* 右側：完美平滑垂直滾動的作品畫廊區 */}
+      <section style={{ width: '65%', height: '100vh', overflowY: 'auto', padding: '84px 120px', display: 'flex', flexDirection: 'column', gap: '80px', boxSizing: 'border-box' }}>
+        {currentGallery.files.map((filename) => (
+          <motion.div
+            key={filename}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', cursor: 'pointer' }}
+            whileHover={{ y: -6 }}
+            onClick={() => setSelectedPhoto(filename)}
+          >
+            {/* 核心修正：強制鎖死大圖尺寸為 500px，杜絕滿版炸開 */}
+            <div style={{ width: '500px', height: '500px', overflow: 'hidden', backgroundColor: '#0d0d0e', border: '1px solid #1c1c1e', boxShadow: '0 20px 50px rgba(0,0,0,0.6)' }}>
+              <img src={`/virtual/${currentId}/${filename}`} alt={filename} style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="grayscale hover:grayscale-0 transition-all duration-500" />
+            </div>
+            <span style={{ fontSize: '11px', letterSpacing: '0.2s', color: '#4b5563', marginTop: '16px', fontFamily: 'monospace', textTransform: 'uppercase' }}>SLICE // {filename}</span>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* 大圖彈窗 */}
+      <AnimatePresence>
+        {selectedPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.98)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px', cursor: 'zoom-out' }}
+            onClick={() => setSelectedPhoto(null)}
+          >
+            <figure style={{ maxWidth: '65vw', maxHeight: '70vh', overflow: 'hidden', border: '1px solid #27272a', backgroundColor: '#000', margin: 0, boxShadow: '0 0 80px rgba(0,0,0,0.9)' }}>
+              <img src={`/virtual/${currentId}/${selectedPhoto}`} alt="Expanded" style={{ width: '100%', height: '100%', objectFit: 'contain' }} onClick={(e) => e.stopPropagation()} />
+            </figure>
+            <div style={{ marginTop: '24px', textAlign: 'center' }} onClick={(e) => e.stopPropagation()}>
+              <span style={{ fontSize: '13px', letterSpacing: '0.2em', color: '#DDAA33', fontFamily: 'monospace', textTransform: 'uppercase' }}>VIEWPORT // {selectedPhoto.toUpperCase()}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </main>
   );
 }

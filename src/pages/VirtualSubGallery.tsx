@@ -6,8 +6,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 const galleryData: Record<string, { name: string, files: string[] }> = {
   '1990': { name: '1990', files: ['cover.png', ...Array.from({ length: 2 }, (_, i) => `1990${i + 1}.png`)] },
   'afternoon': { name: 'Afternoon', files: ['cover.png', ...Array.from({ length: 2 }, (_, i) => `afternoon${i + 1}.png`)] },
-  'angel-devil': { name: 'Angel Devil', files: ['cover.png', ...Array.from({ length: 4 }, (_, i) => `angel-devil${i + 1}.png`)] },
-  'angel-war': { name: 'Angel War', files: ['cover.png', ...Array.from({ length: 7 }, (_, i) => `angel-war${i + 1}.png`)] },
+  'angel-devil': { name: 'ANGEL OR DEVIL', files: ['cover.png', ...Array.from({ length: 4 }, (_, i) => `angel-devil${i + 1}.png`)] },
+  'angel-war': { name: 'ANGEL OF WAR', files: ['cover.png', ...Array.from({ length: 7 }, (_, i) => `angel-war${i + 1}.png`)] },
   'arch': { name: 'Arch', files: ['cover.png', ...Array.from({ length: 5 }, (_, i) => `arch${i + 1}.png`)] },
   'athena': { name: 'Athena', files: ['cover.png', ...Array.from({ length: 7 }, (_, i) => `athena${i + 1}.png`)] },
   'blue': { name: 'Blue', files: ['cover.png', ...Array.from({ length: 6 }, (_, i) => `blue${i + 1}.png`)] },
@@ -37,14 +37,11 @@ export default function VirtualSubGallery() {
   const { id } = useParams(); 
   const navigate = useNavigate();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
   const collectionKey = id && galleryData[id] ? id : '1990';
   const data = galleryData[collectionKey];
   const photoFiles = data.files;
-  const selectedPhotoFilename = selectedPhotoIndex !== null ? photoFiles[selectedPhotoIndex] : null;
-  // public/virtual/{系列ID}/[實際檔名] 會由 Vite 以 /virtual/... 的公開路徑提供
-  const selectedPhotoSrc = selectedPhotoFilename ? `/virtual/${collectionKey}/${selectedPhotoFilename}` : '';
   
   const totalFiles = photoFiles.length; // 總長度 = 張數 + 1 (cover)
 
@@ -69,7 +66,7 @@ export default function VirtualSubGallery() {
             const opacity = useTransform(scrollYProgress, [focusPoint - segment * 0.7, focusPoint - segment * 0.1, focusPoint + segment * 0.1, focusPoint + segment * 0.7], [0, 1, 1, 0]);
 
             return (
-              <motion.div key={filename} style={{ position: 'absolute', z, opacity, cursor: 'zoom-in', transformStyle: 'preserve-3d' }} onClick={() => setSelectedPhotoIndex(index)}>
+              <motion.div key={filename} style={{ position: 'absolute', z, opacity, cursor: 'zoom-in', transformStyle: 'preserve-3d' }} onClick={() => setSelectedPhoto(filename)}>
                 <motion.div style={{ width: 'auto', height: '68vh', maxHeight: '650px', background: '#050508', padding: '10px', boxShadow: '0 0 60px rgba(0, 229, 255, 0.15)', border: '1px solid rgba(0, 229, 255, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} whileHover={{ boxShadow: '0 0 40px rgba(212,175,55,0.4)', borderColor: '#D4AF37' }}>
                   <img src={`/virtual/${collectionKey}/${filename}`} alt="AI Artwork" style={{ height: '100%', width: 'auto', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0.1'; }} />
                 </motion.div>
@@ -85,9 +82,9 @@ export default function VirtualSubGallery() {
       </div>
 
       <AnimatePresence>
-        {selectedPhotoFilename && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedPhotoIndex(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,2,5,0.98)', backdropFilter: 'blur(15px)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out' }}>
-            <motion.img initial={{ scale: 0.8, rotateY: 20 }} animate={{ scale: 1, rotateY: 0 }} exit={{ scale: 0.8, rotateY: -20 }} transition={{ type: "spring", damping: 25, stiffness: 200 }} src={selectedPhotoSrc} alt="Full Detail" style={{ maxWidth: '92%', maxHeight: '92%', boxShadow: '0 0 100px rgba(0, 229, 255, 0.2)', border: '1px solid rgba(0, 229, 255, 0.3)' }} />
+        {selectedPhoto && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedPhoto(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,2,5,0.98)', backdropFilter: 'blur(15px)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out' }}>
+            <motion.img initial={{ scale: 0.8, rotateY: 20 }} animate={{ scale: 1, rotateY: 0 }} exit={{ scale: 0.8, rotateY: -20 }} transition={{ type: "spring", damping: 25, stiffness: 200 }} src={`/virtual/${collectionKey}/${selectedPhoto}`} alt="Full Detail" style={{ maxWidth: '92%', maxHeight: '92%', boxShadow: '0 0 100px rgba(0, 229, 255, 0.2)', border: '1px solid rgba(0, 229, 255, 0.3)' }} />
             <div style={{ position: 'absolute', bottom: '30px', color: '#555', letterSpacing: '3px', fontSize: '0.8rem' }}>TAP TO EXIT VIEWPORT</div>
           </motion.div>
         )}

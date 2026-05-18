@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionValue, useScroll, useTransform } from 'framer-motion';
 
 const galleryData: Record<string, { name: string; files: string[] }> = {
   huan: { name: '幻', files: ['cover.jpg', ...Array.from({ length: 21 }, (_, i) => `huan${String(i + 1).padStart(2, '0')}.jpg`)] },
@@ -15,12 +15,48 @@ const galleryData: Record<string, { name: string; files: string[] }> = {
   haze: { name: '霾', files: ['cover.jpg', ...Array.from({ length: 53 }, (_, i) => `haze${String(i + 1).padStart(2, '0')}.jpg`)] }
 };
 
+type GalleryCardProps = {
+  filename: string;
+  index: number;
+  count: number;
+  currentId: string;
+  scrollYProgress: MotionValue<number>;
+  onSelect: (filename: string) => void;
+};
+
+function GalleryCard({ filename, index, count, currentId, scrollYProgress, onSelect }: GalleryCardProps) {
+  const segment = 1 / count;
+  const focusPoint = index * segment;
+
+  const z = useTransform(scrollYProgress, [focusPoint - segment, focusPoint, focusPoint + segment], [-3000, 0, 1200]);
+  const opacity = useTransform(scrollYProgress, [focusPoint - segment * 0.7, focusPoint, focusPoint + segment * 0.7], [0, 1, 0]);
+  const pointerEvents = useTransform(opacity, value => value > 0.1 ? 'auto' : 'none');
+
+  return (
+    <motion.div
+      style={{ position: 'absolute', z, opacity, pointerEvents, transformStyle: 'preserve-3d' }}
+      whileHover={{ scale: 1.02 }}
+      onClick={() => onSelect(filename)}
+    >
+      {/* 核心修正：鎖死卡片大小，絕不溢出 */}
+      <div style={{ width: '400px', height: '530px', backgroundColor: '#09090b', border: '1px solid #1c1c1e', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 30px 60px rgba(0,0,0,0.8)' }}>
+        <div style={{ width: '100%', height: '430px', overflow: 'hidden', backgroundColor: '#000' }}>
+          <img src={`/real/${currentId}/${filename}`} alt={filename} style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="grayscale hover:grayscale-0 transition-all duration-500" />
+        </div>
+        <span style={{ fontSize: '11px', letterSpacing: '0.2em', color: '#52525b', marginTop: '20px', textTransform: 'uppercase' }}>{filename}</span>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function SubGallery() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const currentId = id ? id.toLowerCase() : 'huan';
   const data = galleryData[currentId];
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ container: scrollContainerRef });
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
   useEffect(() => {
@@ -29,55 +65,68 @@ export default function SubGallery() {
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4">
-        <p className="text-sm tracking-widest text-zinc-500">GALLERY NOT FOUND</p>
-        <button onClick={() => navigate('/real')} className="text-xs text-[#DDAA33] border-b border-[#DDAA33]">BACK TO TUNNEL</button>
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+        <button onClick={() => navigate('/real')} className="text-xs text-[#DDAA33]">BACK TO TUNNEL</button>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#050505] text-zinc-400 font-sans relative select-none overflow-y-auto px-6 py-12">
-      
-      <header className="max-w-7xl mx-auto w-full flex justify-between items-center mb-16">
-        <button onClick={() => navigate('/real')} className="text-xs tracking-[0.2em] text-zinc-500 hover:text-[#DDAA33] transition-colors">← BACK TO TUNNEL</button>
-        <h1 className="text-2xl font-bold tracking-[0.2em] text-[#DDAA33] uppercase">{data.name} // REALITY</h1>
-      </header>
+    <div 
+      ref={scrollContainerRef} 
+      style={{ width: '100vw', height: '100vh', overflowY: 'scroll', overflowX: 'hidden', backgroundColor: '#050505', position: 'relative' }}
+    >
+      {/* 滾動長度軌道 */}
+      <div style={{ height: `${data.files.length * 120}vh`, width: '100%' }}>
+        
+        {/* 3D 視角固定舞台 */}
+        <div style={{ position: 'sticky', top: 0, width: '100vw', height: '100vh', perspective: '1500px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+          
+          {/* 左上角返回鍵 */}
+          <div style={{ position: 'absolute', top: '48px', left: '48px', zIndex: 100 }}>
+            <button onClick={() => navigate('/real')} style={{ background: 'transparent', border: 'none', color: '#71717a', fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer' }}>
+              ← BACK TO TUNNEL
+            </button>
+            <h1 style={{ fontSize: '32px', letterSpacing: '0.2em', color: '#DDAA33', margin: '16px 0 0 0', textTransform: 'uppercase' }}>{data.name} // REALITY</h1>
+          </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {data.files.map((filename) => (
-          <motion.div
-            key={filename}
-            className="bg-zinc-950 border border-zinc-900 p-4 flex flex-col items-center cursor-pointer group"
-            whileHover={{ y: -5 }}
-            onClick={() => setSelectedPhoto(filename)}
-          >
-            <div className="w-full aspect-[3/4] overflow-hidden bg-zinc-900 mb-4">
-              <img src={`/real/${currentId}/${filename}`} alt={filename} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-            </div>
-            <span className="text-[10px] tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors uppercase">{filename}</span>
-          </motion.div>
-        ))}
+          {/* 3D Parallax 圖片卡片流 */}
+          {data.files.map((filename, index) => (
+            <GalleryCard
+              key={filename}
+              filename={filename}
+              index={index}
+              count={data.files.length}
+              currentId={currentId}
+              scrollYProgress={scrollYProgress}
+              onSelect={setSelectedPhoto}
+            />
+          ))}
+
+          <div style={{ position: 'absolute', bottom: '40px', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.3em', color: '#3f3f46' }}>
+            SCROLL TO TRAVEL GALLERY
+          </div>
+
+        </div>
       </div>
 
+      {/* 大圖彈窗 */}
       <AnimatePresence>
         {selectedPhoto && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/98 z-50 flex flex-col items-center justify-center p-12 cursor-zoom-out"
+            style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.98)', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px', cursor: 'zoom-out' }}
             onClick={() => setSelectedPhoto(null)}
           >
-            {/* 核心修正：大幅縮小圖片容器限制，增加優雅留白空間 */}
-            <figure className="max-w-[65vw] max-h-[70vh] overflow-hidden border border-zinc-900 bg-zinc-950 shadow-[0_0_80px_rgba(0,0,0,0.8)]">
-              <img src={`/real/${currentId}/${selectedPhoto}`} alt="Expanded" className="w-full h-full object-contain" onClick={(e) => e.stopPropagation()} />
+            <figure style={{ maxWidth: '65vw', maxHeight: '70vh', overflow: 'hidden', border: '1px solid #27272a', backgroundColor: '#000', margin: 0, boxShadow: '0 0 80px rgba(0,0,0,0.9)' }}>
+              <img src={`/real/${currentId}/${selectedPhoto}`} alt="Expanded" style={{ width: '100%', height: '100%', objectFit: 'contain' }} onClick={(e) => e.stopPropagation()} />
             </figure>
-            <div className="mt-6 text-center" onClick={(e) => e.stopPropagation()}>
-              <p className="text-xs tracking-[0.2em] text-[#DDAA33] font-mono m-0 uppercase">VIEWPORT // {selectedPhoto}</p>
-              <p className="text-[10px] tracking-[0.3em] text-zinc-600 mt-2">TAP ANYWHERE TO CLOSE</p>
+            <div style={{ marginTop: '24px', textAlign: 'center' }} onClick={(e) => e.stopPropagation()}>
+              <p style={{ fontSize: '13px', letterSpacing: '0.2em', color: '#DDAA33', fontFamily: 'monospace', margin: 0, textTransform: 'uppercase' }}>VIEWPORT // {selectedPhoto}</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </main>
+    </div>
   );
 }

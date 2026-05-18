@@ -11,13 +11,13 @@ export default function IntroCard() {
   };
 
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        backgroundColor: '#050505',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+    <main 
+      style={{ 
+        minHeight: '100vh', 
+        backgroundColor: '#050505', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
         transition: 'opacity 0.5s',
         opacity: isExiting ? 0 : 1
       }}
@@ -29,18 +29,18 @@ export default function IntroCard() {
         <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
           {/* 照片正方形尺寸：從 180px 乘以 2.5 倍，強制鎖死為 450px！邊框同步加粗至 3px */}
           <div style={{ width: '450px', height: '450px', overflow: 'hidden', backgroundColor: '#18181b', border: '3px solid #27272a', marginBottom: '60px' }}>
-            <img
-              src="/chun.jpg"
-              alt="蔡濬守"
+            <img 
+              src="/chun.jpg" 
+              alt="蔡濬守" 
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               className="grayscale opacity-90"
             />
           </div>
-
+          
           {/* 文字與垂直間距放大 2.5 倍：學號放大至 32px，姓名放大至 40px，間距 15px */}
           <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px' }}>
             <div style={{ fontSize: '32px', letterSpacing: '0.2em', color: '#a1a1aa' }}>91139127</div>
-            <h1 style={{ fontSize: '40px', letterSpacing: '0.3em', color: '#ffffff', fontWeight: 500, margin: 0 }}>蔡濬守</h1>
+            <h1 style={{ fontSize: '40px', letterSpacing: '0.3em', color: '#ffffff', fontWeights: 500, margin: 0 }}>蔡濬守</h1>
           </div>
         </section>
 

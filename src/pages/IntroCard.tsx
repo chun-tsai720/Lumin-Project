@@ -23,7 +23,7 @@ export default function IntroCard() {
       </section>
 
       {/* 右側文字與控制區 */}
-      <section className="text-section flex flex-col justify-center -mt-20">
+      <section className="text-section flex flex-col justify-center -mt-20"> {/* -mt-20 負責將文字整體往上提 */}
         <div className="max-w-[500px]">
           {/* 自介段落：調整為黃金行距 1.8，字距稍微收斂到 0.1em */}
           <div className="text-[1.1rem] leading-[1.8] tracking-[0.1em] text-gray-300 font-light mb-10">
@@ -34,13 +34,13 @@ export default function IntroCard() {
 
           {/* 按鈕區 */}
           <nav className="flex gap-8">
-            <button
+            <button 
               className="text-sm tracking-[0.2em] text-gray-500 hover:text-[#DDAA33] transition-colors border-b border-gray-800 pb-1"
               onClick={() => handleNavigation('/')}
             >
               ← BACK TO COVER
             </button>
-            <button
+            <button 
               className="text-sm tracking-[0.2em] text-[#DDAA33] hover:brightness-125 transition-all border-b border-[#DDAA33] pb-1"
               onClick={() => handleNavigation('/lobby')}
             >

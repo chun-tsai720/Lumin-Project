@@ -21,7 +21,6 @@ export default function SubGallery() {
   const currentId = id ? id.toLowerCase() : 'huan';
   const data = galleryData[currentId];
 
-  // 核心修復：selectedPhoto 直接儲存完整的檔名路徑字串，徹底防止錯位
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
   useEffect(() => {
@@ -65,14 +64,16 @@ export default function SubGallery() {
         {selectedPhoto && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center p-4 cursor-zoom-out"
+            className="fixed inset-0 bg-black/98 z-50 flex flex-col items-center justify-center p-12 cursor-zoom-out"
             onClick={() => setSelectedPhoto(null)}
           >
-            <figure className="max-w-[90vw] max-h-[85vh] overflow-hidden border border-zinc-900 bg-zinc-950">
+            {/* 核心修正：大幅縮小圖片容器限制，增加優雅留白空間 */}
+            <figure className="max-w-[65vw] max-h-[70vh] overflow-hidden border border-zinc-900 bg-zinc-950 shadow-[0_0_80px_rgba(0,0,0,0.8)]">
               <img src={`/real/${currentId}/${selectedPhoto}`} alt="Expanded" className="w-full h-full object-contain" onClick={(e) => e.stopPropagation()} />
             </figure>
-            <div className="mt-4 text-center" onClick={(e) => e.stopPropagation()}>
+            <div className="mt-6 text-center" onClick={(e) => e.stopPropagation()}>
               <p className="text-xs tracking-[0.2em] text-[#DDAA33] font-mono m-0 uppercase">VIEWPORT // {selectedPhoto}</p>
+              <p className="text-[10px] tracking-[0.3em] text-zinc-600 mt-2">TAP ANYWHERE TO CLOSE</p>
             </div>
           </motion.div>
         )}

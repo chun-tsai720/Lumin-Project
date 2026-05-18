@@ -5,8 +5,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 // (💡 這裡保留原本的血汗抓取檔名字典檔，因篇幅省略，請務必保留在你的檔案頂部 💡)
 const galleryData: Record<string, { name: string, files: string[] }> = {
   huan: { name: '幻', files: ['cover.jpg', ...Array.from({ length: 21 }, (_, i) => `huan${String(i + 1).padStart(2, '0')}.jpg`)] },
+  light: { name: '光', files: ['cover.jpg', ...Array.from({ length: 36 }, (_, i) => `light${String(i + 1).padStart(2, '0')}.jpg`)] },
   heavy: { name: '重', files: ['cover.jpg', ...Array.from({ length: 17 }, (_, i) => `heavy${String(i + 1).padStart(2, '0')}.jpg`)] },
+  maze: { name: '迷', files: ['cover.jpg', ...Array.from({ length: 16 }, (_, i) => `maze${String(i + 1).padStart(2, '0')}.jpg`)] },
+  reflect: { name: '絮', files: ['cover.jpg'] },
   ethereal: { name: '緲', files: ['cover.jpg', ...Array.from({ length: 9 }, (_, i) => `ethereal${String(i + 1).padStart(2, '0')}.jpg`)] },
+  shadow: { name: '影', files: ['cover.jpg', ...Array.from({ length: 36 }, (_, i) => `shadow${String(i + 1).padStart(2, '0')}.jpg`)] },
+  still: { name: '靜', files: ['cover.jpg', ...Array.from({ length: 24 }, (_, i) => `still${String(i + 1).padStart(2, '0')}.jpg`)] },
   crush: { name: '壓', files: ['cover.jpg', ...Array.from({ length: 6 }, (_, i) => `crush${String(i + 1).padStart(2, '0')}.jpg`)] },
   haze: { name: '霧', files: ['cover.jpg', ...Array.from({ length: 53 }, (_, i) => `haze${String(i + 1).padStart(2, '0')}.jpg`)] },
 };

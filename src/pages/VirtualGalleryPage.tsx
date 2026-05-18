@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const virtualCollections = [
   { id: '1990', en: '1990', cover: 'cover.png' },
   { id: 'afternoon', en: 'AFTERNOON', cover: 'cover.png' },
-  { id: 'angel-devil', en: 'Angel Or Devil', cover: 'cover.png' },
-  { id: 'angel-war', en: 'Angel Of War', cover: 'cover.png' },
+  { id: 'angel-devil', en: 'ANGEL OR DEVIL', cover: 'cover.png' },
+  { id: 'angel-war', en: 'ANGEL OF WAR', cover: 'cover.png' },
   { id: 'arch', en: 'ARCH', cover: 'cover.png' },
   { id: 'athena', en: 'ATHENA', cover: 'cover.png' },
   { id: 'blue', en: 'BLUE', cover: 'cover.png' },

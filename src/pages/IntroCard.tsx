@@ -14,11 +14,11 @@ export default function IntroCard() {
     <main className={`curation-container ${isExiting ? 'exiting' : ''}`}>
       <section className="visual-section">
         <figure className="image-wrapper">
-          <img src="/chun.jpg" alt="蔡溶守" />
+          <img src="/chun.jpg" alt="蔡濬守" />
         </figure>
         <div className="creator-info">
           <div className="id">91139127</div>
-          <div className="name">蔡溶守</div>
+          <div className="name">蔡濬守</div>
         </div>
       </section>
 

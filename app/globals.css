@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #050505;
+  --bg-accent: #1a1508;
+  --gold-primary: #d4af37;
+  --gold-soft: rgba(212, 175, 55, 0.15);
+  --text-main: #e0e0e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--text-main);
+  font-family: "Noto Serif TC", "PingFang TC", serif;
+  background:
+    radial-gradient(circle at 20% 30%, var(--bg-accent) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, var(--bg-accent) 0%, transparent 50%),
+    var(--bg-dark);
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity: 0.03;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 35px;
+  color: var(--gold-primary);
+  font-size: 0.9rem;
+  letter-spacing: 0.3rem;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--gold-soft);
+  backdrop-filter: blur(5px);
+  transition: all 0.4s ease;
+}
+
+.nav-btn:hover,
+.nav-btn:focus-visible {
+  background: var(--gold-soft);
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+  outline: none;
+}
+
+.screen-shell {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .nav-btn {
+    padding: 10px 18px;
+    font-size: 0.72rem;
+    letter-spacing: 0.16rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

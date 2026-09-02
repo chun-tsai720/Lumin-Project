@@ -4,10 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "predev": "npm run generate:galleries",
     "dev": "next dev",
+    "prebuild": "npm run generate:galleries",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate:galleries": "node scripts/generate-gallery-manifest.js"
   },
   "dependencies": {
     "@react-three/drei": "10.7.8",

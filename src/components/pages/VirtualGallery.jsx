@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function VirtualGallery({ collections }) {
@@ -86,8 +87,16 @@ export default function VirtualGallery({ collections }) {
                 backdropFilter: "blur(12px)",
               }}
             >
-              <div style={{ width: "100%", height: "75%", marginBottom: "15px", overflow: "hidden", background: "#000" }}>
-                <img src={`/virtual/${item.id}/${item.cover}`} alt={item.en} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{ position: "relative", width: "100%", height: "75%", marginBottom: "15px", overflow: "hidden", background: "#000" }}>
+                {/* 旋轉環上的封面一律使用縮圖，避免所有高解析 PNG 同時占用瀏覽器記憶體。 */}
+                <Image
+                  src={`/virtual/${item.id}/${item.cover}`}
+                  alt={item.en}
+                  fill
+                  sizes="(max-width: 768px) 62vw, 320px"
+                  priority={index === 0}
+                  style={{ objectFit: "cover" }}
+                />
               </div>
               <div style={{ display: "flex", flexGrow: 1, alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                 <h2 style={{ margin: 0, color: "#D4AF37", fontSize: "clamp(1rem, 4vw, 1.6rem)", fontWeight: 700, letterSpacing: "3px" }}>

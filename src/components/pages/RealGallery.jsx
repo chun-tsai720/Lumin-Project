@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 function CollectionCard({ item, index, count, scrollYProgress }) {
@@ -41,8 +42,16 @@ function CollectionCard({ item, index, count, scrollYProgress }) {
           backdropFilter: "blur(15px)",
         }}
       >
-        <div style={{ width: "100%", height: "70%", marginBottom: "20px", overflow: "hidden", background: "#111" }}>
-          <img src={`/real/${item.id}/${item.cover}`} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <div style={{ position: "relative", width: "100%", height: "70%", marginBottom: "20px", overflow: "hidden", background: "#111" }}>
+          {/* 原始封面多為 3,000～5,000px；Image 會依卡片尺寸產生較小版本，避免瀏覽器一次解碼數百 MB。 */}
+          <Image
+            src={`/real/${item.id}/${item.cover}`}
+            alt={item.name}
+            fill
+            sizes="(max-width: 768px) 72vw, 320px"
+            priority={index === 0}
+            style={{ objectFit: "cover" }}
+          />
         </div>
         <div style={{ textAlign: "center" }}>
           <h2 style={{ margin: 0, color: "#D4AF37", fontSize: "clamp(3rem, 8vh, 4.5rem)", lineHeight: 1 }}>{item.name}</h2>

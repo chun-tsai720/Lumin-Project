@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 function GalleryCard({ filename, index, count, gallery, scrollYProgress, onSelect }) {
@@ -49,12 +50,16 @@ function GalleryCard({ filename, index, count, gallery, scrollYProgress, onSelec
           boxShadow: "0 30px 60px rgba(0,0,0,0.8)",
         }}
       >
-        <div style={{ width: "100%", minHeight: 0, flexGrow: 1, overflow: "hidden", backgroundColor: "#000" }}>
-          <img
+        <div style={{ position: "relative", width: "100%", minHeight: 0, flexGrow: 1, overflow: "hidden", backgroundColor: "#000" }}>
+          {/* 隧道卡片只需要螢幕尺寸的影像；點擊後的燈箱才載入下方的原始檔。 */}
+          <Image
             src={`/${gallery.kind}/${gallery.id}/${filename}`}
             alt={`${gallery.name}作品：${filename}`}
+            fill
+            sizes="(max-width: 768px) 76vw, 420px"
+            priority={index === 0}
             className="grayscale transition-all duration-700 hover:grayscale-0"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{ objectFit: "cover" }}
           />
         </div>
         <span style={{ marginTop: "20px", color: "#71717a", fontFamily: "monospace", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase" }}>

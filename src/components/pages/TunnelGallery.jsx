@@ -9,13 +9,18 @@ function GalleryCard({ filename, index, count, gallery, scrollYProgress, onSelec
   // 把目前照片所屬的捲動區段映射成 Z 軸景深，形成穿越隧道的效果。
   const segment = 1 / count;
   const focusPoint = index * segment;
-  const startZ = index === 0 ? 0 : -3000;
-  const startOpacity = index === 0 ? 1 : 0;
-  const z = useTransform(scrollYProgress, [focusPoint - segment, focusPoint, focusPoint + segment], [startZ, 0, 1200]);
+  // 第一張作品從進度 0 出發，避免把負數 offset 傳給瀏覽器的 Web Animations API。
+  const zInput = index === 0 ? [0, segment] : [focusPoint - segment, focusPoint, focusPoint + segment];
+  const zOutput = index === 0 ? [0, 1200] : [-3000, 0, 1200];
+  const opacityInput = index === 0
+    ? [0, segment * 0.7]
+    : [focusPoint - segment * 0.7, focusPoint, focusPoint + segment * 0.7];
+  const opacityOutput = index === 0 ? [1, 0] : [0, 1, 0];
+  const z = useTransform(scrollYProgress, zInput, zOutput);
   const opacity = useTransform(
     scrollYProgress,
-    [focusPoint - segment * 0.7, focusPoint, focusPoint + segment * 0.7],
-    [startOpacity, 1, 0],
+    opacityInput,
+    opacityOutput,
   );
   const pointerEvents = useTransform(opacity, (value) => (value > 0.1 ? "auto" : "none"));
 

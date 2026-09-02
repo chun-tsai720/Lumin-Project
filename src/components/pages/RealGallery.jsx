@@ -10,13 +10,18 @@ function CollectionCard({ item, index, count, scrollYProgress }) {
   const router = useRouter();
   const segment = 1 / count;
   const focusPoint = index * segment;
-  const startZ = index === 0 ? 0 : -3000;
-  const startOpacity = index === 0 ? 1 : 0;
-  const z = useTransform(scrollYProgress, [focusPoint - segment, focusPoint, focusPoint + segment], [startZ, 0, 1500]);
+  // 第一張卡片從捲動進度 0 開始，不能使用負數 offset；Chrome 會因此拒絕整段動畫。
+  const zInput = index === 0 ? [0, segment] : [focusPoint - segment, focusPoint, focusPoint + segment];
+  const zOutput = index === 0 ? [0, 1500] : [-3000, 0, 1500];
+  const opacityInput = index === 0
+    ? [0, segment * 0.5]
+    : [focusPoint - segment * 0.5, focusPoint, focusPoint + segment * 0.5];
+  const opacityOutput = index === 0 ? [1, 0] : [0, 1, 0];
+  const z = useTransform(scrollYProgress, zInput, zOutput);
   const opacity = useTransform(
     scrollYProgress,
-    [focusPoint - segment * 0.5, focusPoint, focusPoint + segment * 0.5],
-    [startOpacity, 1, 0],
+    opacityInput,
+    opacityOutput,
   );
   const pointerEvents = useTransform(opacity, (value) => (value > 0.1 ? "auto" : "none"));
 

@@ -446,11 +446,11 @@
       "name": "1990",
       "en": "1990",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "19901.png",
-        "19902.png"
+        "cover.jpg",
+        "19901.jpg",
+        "19902.jpg"
       ]
     },
     {
@@ -459,11 +459,11 @@
       "name": "AFTERNOON",
       "en": "AFTERNOON",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "afternoon1.png",
-        "afternoon2.png"
+        "cover.jpg",
+        "afternoon1.jpg",
+        "afternoon2.jpg"
       ]
     },
     {
@@ -472,13 +472,13 @@
       "name": "ANGEL OR DEVIL",
       "en": "ANGEL OR DEVIL",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "angel-devil1.png",
-        "angel-devil2.png",
-        "angel-devil3.png",
-        "angel-devil4.png"
+        "cover.jpg",
+        "angel-devil1.jpg",
+        "angel-devil2.jpg",
+        "angel-devil3.jpg",
+        "angel-devil4.jpg"
       ]
     },
     {
@@ -487,16 +487,16 @@
       "name": "ANGEL OF WAR",
       "en": "ANGEL OF WAR",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "angel-war1.png",
-        "angel-war2.png",
-        "angel-war3.png",
-        "angel-war4.png",
-        "angel-war5.png",
-        "angel-war6.png",
-        "angel-war7.png"
+        "cover.jpg",
+        "angel-war1.jpg",
+        "angel-war2.jpg",
+        "angel-war3.jpg",
+        "angel-war4.jpg",
+        "angel-war5.jpg",
+        "angel-war6.jpg",
+        "angel-war7.jpg"
       ]
     },
     {
@@ -505,14 +505,14 @@
       "name": "ARCH",
       "en": "ARCH",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "arch1.png",
-        "arch2.png",
-        "arch3.png",
-        "arch4.png",
-        "arch5.png"
+        "cover.jpg",
+        "arch1.jpg",
+        "arch2.jpg",
+        "arch3.jpg",
+        "arch4.jpg",
+        "arch5.jpg"
       ]
     },
     {
@@ -521,16 +521,16 @@
       "name": "ATHENA",
       "en": "ATHENA",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "athena1.png",
-        "athena2.png",
-        "athena3.png",
-        "athena4.png",
-        "athena5.png",
-        "athena6.png",
-        "athena7.png"
+        "cover.jpg",
+        "athena1.jpg",
+        "athena2.jpg",
+        "athena3.jpg",
+        "athena4.jpg",
+        "athena5.jpg",
+        "athena6.jpg",
+        "athena7.jpg"
       ]
     },
     {
@@ -539,15 +539,15 @@
       "name": "BLUE",
       "en": "BLUE",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "blue1.png",
-        "blue2.png",
-        "blue3.png",
-        "blue4.png",
-        "blue5.png",
-        "blue6.png"
+        "cover.jpg",
+        "blue1.jpg",
+        "blue2.jpg",
+        "blue3.jpg",
+        "blue4.jpg",
+        "blue5.jpg",
+        "blue6.jpg"
       ]
     },
     {
@@ -556,11 +556,11 @@
       "name": "BURGER",
       "en": "BURGER",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "burger1.png",
-        "burger2.png"
+        "cover.jpg",
+        "burger1.jpg",
+        "burger2.jpg"
       ]
     },
     {
@@ -569,19 +569,19 @@
       "name": "DARK FASHION",
       "en": "DARK FASHION",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "dark-fashion1.png",
-        "dark-fashion2.png",
-        "dark-fashion3.png",
-        "dark-fashion4.png",
-        "dark-fashion5.png",
-        "dark-fashion6.png",
-        "dark-fashion7.png",
-        "dark-fashion8.png",
-        "dark-fashion9.png",
-        "dark-fashion10.png"
+        "cover.jpg",
+        "dark-fashion1.jpg",
+        "dark-fashion2.jpg",
+        "dark-fashion3.jpg",
+        "dark-fashion4.jpg",
+        "dark-fashion5.jpg",
+        "dark-fashion6.jpg",
+        "dark-fashion7.jpg",
+        "dark-fashion8.jpg",
+        "dark-fashion9.jpg",
+        "dark-fashion10.jpg"
       ]
     },
     {
@@ -590,10 +590,10 @@
       "name": "DREAM",
       "en": "DREAM",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "deram1.png"
+        "cover.jpg",
+        "deram1.jpg"
       ]
     },
     {
@@ -602,12 +602,12 @@
       "name": "FASHION",
       "en": "FASHION",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "fashion1.png",
-        "fashion2.png",
-        "fashion3.png"
+        "cover.jpg",
+        "fashion1.jpg",
+        "fashion2.jpg",
+        "fashion3.jpg"
       ]
     },
     {
@@ -616,11 +616,11 @@
       "name": "FLOWER",
       "en": "FLOWER",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "flower1.png",
-        "flower2.png"
+        "cover.jpg",
+        "flower1.jpg",
+        "flower2.jpg"
       ]
     },
     {
@@ -629,15 +629,15 @@
       "name": "GOD OF THUNDER",
       "en": "GOD OF THUNDER",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "god-of-thunder1.png",
-        "god-of-thunder2.png",
-        "god-of-thunder3.png",
-        "god-of-thunder4.png",
-        "god-of-thunder5.png",
-        "god-of-thunder6.png"
+        "cover.jpg",
+        "god-of-thunder1.jpg",
+        "god-of-thunder2.jpg",
+        "god-of-thunder3.jpg",
+        "god-of-thunder4.jpg",
+        "god-of-thunder5.jpg",
+        "god-of-thunder6.jpg"
       ]
     },
     {
@@ -646,17 +646,17 @@
       "name": "GOTHIC",
       "en": "GOTHIC",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "gothic1.png",
-        "gothic2.png",
-        "gothic3.png",
-        "gothic4.png",
-        "gothic5.png",
-        "gothic6.png",
-        "gothic7.png",
-        "gothic8.png"
+        "cover.jpg",
+        "gothic1.jpg",
+        "gothic2.jpg",
+        "gothic3.jpg",
+        "gothic4.jpg",
+        "gothic5.jpg",
+        "gothic6.jpg",
+        "gothic7.jpg",
+        "gothic8.jpg"
       ]
     },
     {
@@ -665,14 +665,14 @@
       "name": "HADES",
       "en": "HADES",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "hades1.png",
-        "hades2.png",
-        "hades3.png",
-        "hades4.png",
-        "hades5.png"
+        "cover.jpg",
+        "hades1.jpg",
+        "hades2.jpg",
+        "hades3.jpg",
+        "hades4.jpg",
+        "hades5.jpg"
       ]
     },
     {
@@ -681,19 +681,19 @@
       "name": "HELEN",
       "en": "HELEN",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "helen1.png",
-        "helen2.png",
-        "helen3.png",
-        "helen4.png",
-        "helen5.png",
-        "helen6.png",
-        "helen7.png",
-        "helen8.png",
-        "helen9.png",
-        "helen10.png"
+        "cover.jpg",
+        "helen1.jpg",
+        "helen2.jpg",
+        "helen3.jpg",
+        "helen4.jpg",
+        "helen5.jpg",
+        "helen6.jpg",
+        "helen7.jpg",
+        "helen8.jpg",
+        "helen9.jpg",
+        "helen10.jpg"
       ]
     },
     {
@@ -702,18 +702,18 @@
       "name": "KING OF THE SEA",
       "en": "KING OF THE SEA",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "king-sea1.png",
-        "king-sea2.png",
-        "king-sea3.png",
-        "king-sea4.png",
-        "king-sea5.png",
-        "king-sea6.png",
-        "king-sea7.png",
-        "king-sea8.png",
-        "king-sea9.png"
+        "cover.jpg",
+        "king-sea1.jpg",
+        "king-sea2.jpg",
+        "king-sea3.jpg",
+        "king-sea4.jpg",
+        "king-sea5.jpg",
+        "king-sea6.jpg",
+        "king-sea7.jpg",
+        "king-sea8.jpg",
+        "king-sea9.jpg"
       ]
     },
     {
@@ -722,13 +722,13 @@
       "name": "ODIN",
       "en": "ODIN",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "odin1.png",
-        "odin2.png",
-        "odin3.png",
-        "odin4.png"
+        "cover.jpg",
+        "odin1.jpg",
+        "odin2.jpg",
+        "odin3.jpg",
+        "odin4.jpg"
       ]
     },
     {
@@ -737,17 +737,17 @@
       "name": "ORANGE FASHION",
       "en": "ORANGE FASHION",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "orange-fashion1.png",
-        "orange-fashion2.png",
-        "orange-fashion3.png",
-        "orange-fashion4.png",
-        "orange-fashion5.png",
-        "orange-fashion6.png",
-        "orange-fashion7.png",
-        "orange-fashion8.png"
+        "cover.jpg",
+        "orange-fashion1.jpg",
+        "orange-fashion2.jpg",
+        "orange-fashion3.jpg",
+        "orange-fashion4.jpg",
+        "orange-fashion5.jpg",
+        "orange-fashion6.jpg",
+        "orange-fashion7.jpg",
+        "orange-fashion8.jpg"
       ]
     },
     {
@@ -756,15 +756,15 @@
       "name": "PRIEST",
       "en": "PRIEST",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "priest1.png",
-        "priest2.png",
-        "priest3.png",
-        "priest4.png",
-        "priest5.png",
-        "priest6.png"
+        "cover.jpg",
+        "priest1.jpg",
+        "priest2.jpg",
+        "priest3.jpg",
+        "priest4.jpg",
+        "priest5.jpg",
+        "priest6.jpg"
       ]
     },
     {
@@ -773,17 +773,17 @@
       "name": "RED",
       "en": "RED",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "red1.png",
-        "red2.png",
-        "red3.png",
-        "red4.png",
-        "red5.png",
-        "red6.png",
-        "red7.png",
-        "red8.png"
+        "cover.jpg",
+        "red1.jpg",
+        "red2.jpg",
+        "red3.jpg",
+        "red4.jpg",
+        "red5.jpg",
+        "red6.jpg",
+        "red7.jpg",
+        "red8.jpg"
       ]
     },
     {
@@ -792,17 +792,17 @@
       "name": "SHIVA",
       "en": "SHIVA",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "shiva1.png",
-        "shiva2.png",
-        "shiva3.png",
-        "shiva4.png",
-        "shiva5.png",
-        "shiva6.png",
-        "shiva7.png",
-        "shiva8.png"
+        "cover.jpg",
+        "shiva1.jpg",
+        "shiva2.jpg",
+        "shiva3.jpg",
+        "shiva4.jpg",
+        "shiva5.jpg",
+        "shiva6.jpg",
+        "shiva7.jpg",
+        "shiva8.jpg"
       ]
     },
     {
@@ -811,19 +811,19 @@
       "name": "SKULL FASHION",
       "en": "SKULL FASHION",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "skull-fashion1.png",
-        "skull-fashion2.png",
-        "skull-fashion3.png",
-        "skull-fashion4.png",
-        "skull-fashion5.png",
-        "skull-fashion6.png",
-        "skull-fashion7.png",
-        "skull-fashion8.png",
-        "skull-fashion9.png",
-        "skull-fashion10.png"
+        "cover.jpg",
+        "skull-fashion1.jpg",
+        "skull-fashion2.jpg",
+        "skull-fashion3.jpg",
+        "skull-fashion4.jpg",
+        "skull-fashion5.jpg",
+        "skull-fashion6.jpg",
+        "skull-fashion7.jpg",
+        "skull-fashion8.jpg",
+        "skull-fashion9.jpg",
+        "skull-fashion10.jpg"
       ]
     },
     {
@@ -832,14 +832,14 @@
       "name": "STEAMPUNK GIRL",
       "en": "STEAMPUNK GIRL",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "steampunk-girl1.png",
-        "steampunk-girl2.png",
-        "steampunk-girl3.png",
-        "steampunk-girl4.png",
-        "steampunk-girl5.png"
+        "cover.jpg",
+        "steampunk-girl1.jpg",
+        "steampunk-girl2.jpg",
+        "steampunk-girl3.jpg",
+        "steampunk-girl4.jpg",
+        "steampunk-girl5.jpg"
       ]
     },
     {
@@ -848,14 +848,14 @@
       "name": "SURVIVE",
       "en": "SURVIVE",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "survive1.png",
-        "survive2.png",
-        "survive3.png",
-        "survive4.png",
-        "survive5.png"
+        "cover.jpg",
+        "survive1.jpg",
+        "survive2.jpg",
+        "survive3.jpg",
+        "survive4.jpg",
+        "survive5.jpg"
       ]
     },
     {
@@ -864,11 +864,11 @@
       "name": "VALKYRIE",
       "en": "VALKYRIE",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "valkyrie1.png",
-        "valkyrie2.png"
+        "cover.jpg",
+        "valkyrie1.jpg",
+        "valkyrie2.jpg"
       ]
     },
     {
@@ -877,17 +877,17 @@
       "name": "WHITE",
       "en": "WHITE",
       "subtitle": "VIRTUAL ENTITY",
-      "cover": "cover.png",
+      "cover": "cover.jpg",
       "files": [
-        "cover.png",
-        "white1.png",
-        "white2.png",
-        "white3.png",
-        "white4.png",
-        "white5.png",
-        "white6.png",
-        "white7.png",
-        "white8.png"
+        "cover.jpg",
+        "white1.jpg",
+        "white2.jpg",
+        "white3.jpg",
+        "white4.jpg",
+        "white5.jpg",
+        "white6.jpg",
+        "white7.jpg",
+        "white8.jpg"
       ]
     }
   ]
